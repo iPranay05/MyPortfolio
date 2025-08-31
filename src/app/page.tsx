@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
               <button
                 key={item}
                 className="minecraft-btn px-5 py-3 text-white font-semibold text-sm hover:scale-105 transition-transform"
-                onClick={() => setTimeout(() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' }), 2000)}
+                onClick={() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })}
               >
                 {item}
               </button>
@@ -35,15 +36,14 @@ export default function Home() {
               <p className="text-xl text-amber-200 leading-relaxed">
                 🚀 Co-founder with hands-on experience and growing interest in Web3<br/>
                 💡 Passionate about building businesses that solve real problems<br/>
-                ⚡ Using &quot;vibe coding&quot; and AI-powered solutions
+                ⚡ Using "vibe coding" and AI-powered solutions
               </p>
             </div>
           </div>
           <div className="flex gap-6 justify-center">
             <button 
               className="minecraft-btn px-10 py-5 text-2xl text-white font-bold hover:scale-110 transition-transform"
-              onClick={(e) => {
-                e.currentTarget.classList.add('spinning');
+              onClick={() => {
                 document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
@@ -312,7 +312,7 @@ export default function Home() {
                           <span className="text-4xl mr-3">{quest.icon}</span>
                           <div>
                             <h3 className="text-2xl font-bold text-white minecraft-glow">{quest.title}</h3>
-                            <p className="text-gray-300">Let's connect and create something extraordinary!</p>
+                            <p className="text-gray-200 font-semibold">{quest.company}</p>
                           </div>
                         </div>
                         <div className="text-right">
@@ -371,7 +371,7 @@ export default function Home() {
               <div className="minecraft-block bg-minecraft-grass minecraft-texture p-6 rounded-2xl text-center">
                 <div className="text-4xl mb-2">🌱</div>
                 <h3 className="text-white font-bold text-xl mb-2">Journey Begins</h3>
-                <p className="text-gray-300">I'm always excited to discuss new opportunities and collaborations.</p>
+                <p className="text-green-200">Started coding with curiosity and passion</p>
                 <div className="mt-4">
                   <span className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-bold">
                     Origin Story
@@ -459,7 +459,7 @@ export default function Home() {
                 className={`${project.color} border-4 border-gray-800 p-6 rounded-lg shadow-minecraft hover:shadow-minecraft-hover transition-all duration-200 transform hover:-translate-y-2`}
               >
                 <h3 className="text-xl font-bold text-white mb-3">{project.title}</h3>
-                <p className="text-gray-300 mb-8">Let's build something amazing together!</p>
+                <p className="text-gray-200 mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (
                     <span
