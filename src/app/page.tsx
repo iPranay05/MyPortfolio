@@ -4,43 +4,76 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-400 via-green-400 to-green-600">
       {/* Navigation */}
-      <nav className="bg-minecraft-stone minecraft-texture border-b-4 border-gray-900 p-6 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-white minecraft-glow">⛏️ Pranay Nair</h1>
-          <div className="flex gap-3">
-            {['About', 'Skills', 'Experience', 'Projects', 'Contact'].map((item) => (
-              <button
-                key={item}
-                className="minecraft-btn px-5 py-3 text-white font-semibold text-sm hover:scale-105 transition-transform"
-                onClick={() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                {item}
-              </button>
-            ))}
+      <nav className="bg-minecraft-stone minecraft-texture border-b-4 border-gray-900 p-3 md:p-6 sticky top-0 z-50 shadow-lg">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex justify-between items-center">
+            <h1 className="text-xl md:text-3xl font-bold text-white minecraft-glow">⛏️ Pranay Nair</h1>
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex gap-3">
+              {['About', 'Skills', 'Experience', 'Projects', 'Contact'].map((item) => (
+                <button
+                  key={item}
+                  className="minecraft-btn px-5 py-3 text-white font-semibold text-sm hover:scale-105 transition-transform"
+                  onClick={() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden minecraft-btn px-3 py-2 text-white font-semibold text-sm"
+              onClick={() => {
+                const menu = document.getElementById('mobile-menu');
+                menu?.classList.toggle('hidden');
+              }}
+            >
+              ☰ Menu
+            </button>
+          </div>
+
+          {/* Mobile Navigation Menu */}
+          <div id="mobile-menu" className="hidden md:hidden mt-4 pb-2">
+            <div className="grid grid-cols-2 gap-2">
+              {['About', 'Skills', 'Experience', 'Projects', 'Contact'].map((item) => (
+                <button
+                  key={item}
+                  className="minecraft-btn px-4 py-2 text-white font-semibold text-sm hover:scale-105 transition-transform w-full"
+                  onClick={() => {
+                    document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('mobile-menu')?.classList.add('hidden');
+                  }}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+      <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 md:pt-20">
         <div className="text-center z-10 max-w-4xl mx-auto px-4">
-          <div className="minecraft-block bg-minecraft-dirt minecraft-texture p-12 rounded-2xl mb-12 animate-float">
-            <div className="mb-6">
-              <span className="text-8xl">💻</span>
+          <div className="minecraft-block bg-minecraft-dirt minecraft-texture p-6 md:p-12 rounded-2xl mb-8 md:mb-12 animate-float">
+            <div className="mb-4 md:mb-6">
+              <span className="text-6xl md:text-8xl">💻</span>
             </div>
-            <h1 className="text-7xl font-bold text-white minecraft-glow mb-6">Pranay Nair</h1>
-            <div className="bg-minecraft-wood minecraft-texture p-6 rounded-xl mb-6 border-4 border-amber-900">
-              <p className="text-3xl text-amber-100 mb-4 font-bold">Full Stack Developer & Entrepreneur</p>
-              <p className="text-xl text-amber-200 leading-relaxed">
+            <h1 className="text-4xl md:text-7xl font-bold text-white minecraft-glow mb-4 md:mb-6">Pranay Nair</h1>
+            <div className="bg-minecraft-wood minecraft-texture p-4 md:p-6 rounded-xl mb-4 md:mb-6 border-4 border-amber-900">
+              <p className="text-xl md:text-3xl text-amber-100 mb-3 md:mb-4 font-bold">Full Stack Developer & Entrepreneur</p>
+              <p className="text-sm md:text-xl text-amber-200 leading-relaxed">
                 🚀 Co-founder with hands-on experience and growing interest in Web3<br/>
                 💡 Passionate about building businesses that solve real problems<br/>
                 ⚡ Using &quot;vibe coding&quot; and AI-powered solutions
               </p>
             </div>
           </div>
-          <div className="flex gap-6 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
             <button 
-              className="minecraft-btn px-10 py-5 text-2xl text-white font-bold hover:scale-110 transition-transform"
+              className="minecraft-btn px-6 py-3 md:px-10 md:py-5 text-lg md:text-2xl text-white font-bold hover:scale-110 transition-transform"
               onClick={(e) => {
                 e.currentTarget.classList.add('spinning');
                 document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
@@ -52,7 +85,7 @@ export default function Home() {
               href="/Pranay Nair (2)[1].pdf" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="minecraft-btn px-10 py-5 text-2xl text-white font-bold hover:scale-110 transition-transform block text-center"
+              className="minecraft-btn px-6 py-3 md:px-10 md:py-5 text-lg md:text-2xl text-white font-bold hover:scale-110 transition-transform block text-center"
             >
               📜 View Resume
             </a>
@@ -246,11 +279,11 @@ export default function Home() {
 
           {/* Interactive Timeline */}
           <div className="relative">
-            {/* Central Path */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-2 bg-minecraft-redstone h-full rounded-full"></div>
+            {/* Central Path - Hidden on mobile */}
+            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-2 bg-minecraft-redstone h-full rounded-full"></div>
             
             {/* Journey Milestones */}
-            <div className="space-y-16">
+            <div className="space-y-8 md:space-y-16">
               {[
                 {
                   title: "🔍 Technical Intern",
@@ -301,45 +334,45 @@ export default function Home() {
                   side: "right"
                 }
               ].reverse().map((quest, index) => (
-                <div key={index} className={`flex items-center ${quest.side === 'left' ? 'flex-row-reverse' : ''}`}>
+                <div key={index} className={`flex items-center ${quest.side === 'left' && 'md:flex-row-reverse'}`}>
                   {/* Quest Card */}
-                  <div className={`w-5/12 ${quest.side === 'left' ? 'mr-auto' : 'ml-auto'}`}>
-                    <div className={`minecraft-block ${quest.color} minecraft-texture p-8 rounded-2xl hover:scale-105 transition-all duration-300 cursor-pointer group`}>
+                  <div className={`w-full md:w-5/12 ${quest.side === 'left' ? 'md:mr-auto' : 'md:ml-auto'}`}>
+                    <div className={`minecraft-block ${quest.color} minecraft-texture p-4 md:p-8 rounded-2xl hover:scale-105 transition-all duration-300 cursor-pointer group`}>
                       {/* Quest Header */}
-                      <div className="flex items-center justify-between mb-4">
+                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 gap-3">
                         <div className="flex items-center">
-                          <span className="text-4xl mr-3">{quest.icon}</span>
+                          <span className="text-3xl md:text-4xl mr-3">{quest.icon}</span>
                           <div>
-                            <h3 className="text-2xl font-bold text-white minecraft-glow">{quest.title}</h3>
-                            <p className="text-gray-300">{quest.company}</p>
+                            <h3 className="text-lg md:text-2xl font-bold text-white minecraft-glow">{quest.title}</h3>
+                            <p className="text-gray-300 text-sm md:text-base">{quest.company}</p>
                           </div>
                         </div>
-                        <div className="text-right">
-                          <div className="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm font-bold mb-1">
+                        <div className="flex gap-2 md:flex-col md:text-right">
+                          <div className="bg-yellow-500 text-black px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-bold">
                             {quest.level}
                           </div>
-                          <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                          <div className="bg-green-500 text-white px-2 md:px-3 py-1 rounded-full text-xs font-bold">
                             +{quest.xp}
                           </div>
                         </div>
                       </div>
 
                       {/* Quest Description */}
-                      <div className="bg-black bg-opacity-30 p-4 rounded-xl mb-4 border-2 border-gray-700">
-                        <p className="text-gray-200 leading-relaxed">{quest.description}</p>
+                      <div className="bg-black bg-opacity-30 p-3 md:p-4 rounded-xl mb-4 border-2 border-gray-700">
+                        <p className="text-gray-200 leading-relaxed text-sm md:text-base">{quest.description}</p>
                       </div>
 
                       {/* Achievements Unlocked */}
                       <div className="mb-4">
-                        <h4 className="text-white font-bold mb-2 flex items-center">
+                        <h4 className="text-white font-bold mb-2 flex items-center text-sm md:text-base">
                           <span className="mr-2">🏅</span>
                           Achievements Unlocked:
                         </h4>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-1 md:gap-2">
                           {quest.achievements.map((achievement, i) => (
                             <span
                               key={i}
-                              className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-bold border-2 border-purple-400"
+                              className="bg-purple-600 text-white px-2 md:px-3 py-1 rounded-full text-xs font-bold border-2 border-purple-400"
                             >
                               {achievement}
                             </span>
@@ -348,20 +381,20 @@ export default function Home() {
                       </div>
 
                       {/* Quest Duration */}
-                      <div className="flex items-center justify-between">
-                        <span className="text-gray-300 text-sm flex items-center">
+                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
+                        <span className="text-gray-300 text-xs md:text-sm flex items-center">
                           <span className="mr-2">📅</span>
                           {quest.period}
                         </span>
                         <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                          <span className="text-green-400 font-bold text-sm">Quest Completed! ✅</span>
+                          <span className="text-green-400 font-bold text-xs md:text-sm">Quest Completed! ✅</span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Timeline Node */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-minecraft-redstone minecraft-texture rounded-full border-4 border-white flex items-center justify-center z-10">
+                  {/* Timeline Node - Hidden on mobile */}
+                  <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-minecraft-redstone minecraft-texture rounded-full border-4 border-white items-center justify-center z-10">
                     <span className="text-white text-xs font-bold">{3 - index}</span>
                   </div>
                 </div>
