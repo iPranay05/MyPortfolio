@@ -105,8 +105,8 @@ export default function Home() {
                 <p className="text-amber-100 leading-relaxed text-lg">
                   Currently pursuing <span className="text-yellow-300 font-bold">B.Tech in Information Technology</span> with specialization in 
                   <span className="text-cyan-300 font-bold"> AI & Robotics</span> at Pillai College of Engineering. 
-                  I'm a Full Stack Developer and entrepreneur with hands-on experience and a growing interest in 
-                  <span className="text-purple-300 font-bold"> Web3</span>. I adopt a "vibe coding" approach, 
+                  I&apos;m a Full Stack Developer and entrepreneur with hands-on experience and a growing interest in 
+                  <span className="text-purple-300 font-bold"> Web3</span>. I adopt a &quot;vibe coding&quot; approach, 
                   leveraging AI tools to speed up development while fully understanding and customizing the code.
                 </p>
               </div>
@@ -224,7 +224,7 @@ export default function Home() {
           <div className="text-center mb-16">
             <h2 className="text-6xl font-bold text-white minecraft-glow mb-4">🗺️ My Epic Journey</h2>
             <div className="w-32 h-2 bg-minecraft-emerald mx-auto rounded-full mb-4"></div>
-            <p className="text-xl text-green-200">From Noob to Pro - A Developer's Quest</p>
+            <p className="text-xl text-green-200">From Noob to Pro - A Developer&apos;s Quest</p>
           </div>
 
           {/* Quest Progress Bar */}
@@ -337,7 +337,10 @@ export default function Home() {
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {quest.achievements.map((achievement, i) => (
-                            <span key={i} className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-bold border-2 border-purple-400">
+                            <span
+                              key={i}
+                              className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-bold border-2 border-purple-400"
+                            >
                               {achievement}
                             </span>
                           ))}
@@ -370,7 +373,7 @@ export default function Home() {
               <div className="minecraft-block bg-minecraft-grass minecraft-texture p-6 rounded-2xl text-center">
                 <div className="text-4xl mb-2">🌱</div>
                 <h3 className="text-white font-bold text-xl mb-2">Journey Begins</h3>
-                <p className="text-gray-300">I'm always excited to discuss new opportunities and collaborations.</p>
+                <p className="text-gray-300">I&apos;m always excited to discuss new opportunities and collaborations.</p>
                 <div className="mt-4">
                   <span className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-bold">
                     Origin Story
@@ -389,7 +392,7 @@ export default function Home() {
               { label: "Hackathons Won", value: "4+", icon: "🏆" }
             ].map((stat, index) => (
               <div key={index} className="minecraft-block bg-minecraft-stone minecraft-texture p-6 rounded-xl text-center hover:scale-110 transition-transform">
-                <div className="text-3xl mb-2">{stat.icon}</div>
+                <div className="text-3xl mb-3">{stat.icon}</div>
                 <div className="text-3xl font-bold text-white minecraft-glow mb-1">{stat.value}</div>
                 <div className="text-gray-300 text-sm">{stat.label}</div>
               </div>
@@ -492,10 +495,10 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-minecraft-obsidian">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-white mb-12">Let's Build Together</h2>
+          <h2 className="text-4xl font-bold text-center text-white mb-12">Let&apos;s Build Together</h2>
           <div className="bg-minecraft-dirt border-4 border-gray-800 p-8 rounded-lg shadow-minecraft">
             <p className="text-xl text-gray-200 mb-8">
-              Ready to start a new adventure? Let's craft something amazing together!
+              Ready to start a new adventure? Let&apos;s craft something amazing together!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="mailto:pranaynair05@gmail.com" className="minecraft-btn px-6 py-3 text-white font-semibold">
