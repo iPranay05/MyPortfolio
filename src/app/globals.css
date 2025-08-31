@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+:root {
+  --foreground: #2F4F4F;
+}
+
+body {
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(135, 206, 235, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(124, 179, 66, 0.3) 0%, transparent 50%),
+    linear-gradient(135deg, #87CEEB 0%, #98D982 50%, #7CB342 100%);
+  color: var(--foreground);
+  font-family: 'Pixelify Sans', monospace;
+  image-rendering: pixelated;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Minecraft block texture effect */
+.minecraft-texture {
+  position: relative;
+  background-image: 
+    linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.1) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.1) 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+}
+
+/* Enhanced Minecraft-style buttons */
+.minecraft-btn {
+  background: linear-gradient(145deg, #A1887F 0%, #8D6E63 50%, #5D4037 100%);
+  border: 3px solid;
+  border-color: #D7CCC8 #4E342E #4E342E #D7CCC8;
+  box-shadow: 
+    inset 2px 2px 0px rgba(255,255,255,0.3),
+    inset -2px -2px 0px rgba(0,0,0,0.3),
+    4px 4px 8px rgba(0,0,0,0.4);
+  image-rendering: pixelated;
+  transition: all 0.15s ease;
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.minecraft-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+  background-size: 4px 4px;
+  pointer-events: none;
+}
+
+.minecraft-btn:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 
+    inset 2px 2px 0px rgba(255,255,255,0.4),
+    inset -2px -2px 0px rgba(0,0,0,0.4),
+    2px 2px 4px rgba(0,0,0,0.4);
+  background: linear-gradient(145deg, #B39C8A 0%, #9E7B6E 50%, #6D4C41 100%);
+}
+
+.minecraft-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 
+    inset 2px 2px 0px rgba(0,0,0,0.3),
+    inset -2px -2px 0px rgba(255,255,255,0.2),
+    1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Minecraft block styles */
+.minecraft-block {
+  position: relative;
+  border: 3px solid;
+  box-shadow: 
+    inset 3px 3px 0px rgba(255,255,255,0.3),
+    inset -3px -3px 0px rgba(0,0,0,0.3),
+    6px 6px 12px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+}
+
+.minecraft-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.1) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.1) 75%);
+  background-size: 6px 6px;
+  background-position: 0 0, 0 3px, 3px -3px, -3px 0px;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.minecraft-block:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    inset 3px 3px 0px rgba(255,255,255,0.4),
+    inset -3px -3px 0px rgba(0,0,0,0.4),
+    8px 12px 20px rgba(0,0,0,0.5);
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(1deg); }
+  50% { transform: translateY(-5px) rotate(0deg); }
+  75% { transform: translateY(-15px) rotate(-1deg); }
+}
+
+@keyframes blockFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-block-float {
+  animation: blockFloat 6s ease-in-out infinite;
+}
+
+/* Glowing text effect */
+.minecraft-glow {
+  text-shadow: 
+    0 0 5px rgba(255, 255, 255, 0.8),
+    0 0 10px rgba(255, 255, 255, 0.6),
+    0 0 15px rgba(255, 255, 255, 0.4),
+    2px 2px 0px rgba(0, 0, 0, 0.8);
+}
+
+/* Inventory slot styling */
+.inventory-slot {
+  background: linear-gradient(145deg, #424242 0%, #212121 100%);
+  border: 3px solid;
+  border-color: #616161 #0D0D0D #0D0D0D #616161;
+  box-shadow: 
+    inset 2px 2px 0px rgba(255,255,255,0.1),
+    inset -2px -2px 0px rgba(0,0,0,0.5),
+    4px 4px 8px rgba(0,0,0,0.6);
+}
+
+/* Pixelated borders */
+.pixel-border {
+  border-image: url("data:image/svg+xml,%3csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m0 0h100v100h-100z' fill='none' stroke='%23000' stroke-width='4'/%3e%3c/svg%3e") 4;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #8D6E63;
+  border: 2px solid #5D4037;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(145deg, #A1887F, #6D4C41);
+  border: 1px solid #4E342E;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(145deg, #B39C8A, #7D5A50);
+}
