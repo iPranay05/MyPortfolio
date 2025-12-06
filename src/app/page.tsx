@@ -63,8 +63,8 @@ export default function Home() {
             </div>
             <h1 className="text-4xl md:text-7xl font-bold text-white minecraft-glow mb-4 md:mb-6">Pranay Nair</h1>
             <div className="bg-minecraft-wood minecraft-texture p-4 md:p-6 rounded-xl mb-4 md:mb-6 border-4 border-amber-900">
-              <p className="text-xl md:text-3xl text-amber-100 mb-3 md:mb-4 font-bold">Full Stack Developer & Entrepreneur</p>
-              <p className="text-sm md:text-xl text-amber-200 leading-relaxed">
+              <p className="text-xl md:text-3xl text-white mb-3 md:mb-4 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>Full Stack Developer & Entrepreneur</p>
+              <p className="text-sm md:text-xl text-white leading-relaxed" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>
                 🚀 Co-founder with hands-on experience and growing interest in Web3<br/>
                 💡 Passionate about building businesses that solve real problems<br/>
                 ⚡ Using &quot;vibe coding&quot; and AI-powered solutions
@@ -82,7 +82,7 @@ export default function Home() {
               🌍 Explore My World
             </button>
             <a 
-              href="/Pranay Nair (2)[1].pdf" 
+              href="/Pranay Nair.pdf" 
               target="_blank" 
               rel="noopener noreferrer"
               className="minecraft-btn px-6 py-3 md:px-10 md:py-5 text-lg md:text-2xl text-white font-bold hover:scale-110 transition-transform block text-center"
@@ -125,7 +125,7 @@ export default function Home() {
       <section id="about" className="py-24 bg-minecraft-grass minecraft-texture relative">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-6xl font-bold text-white minecraft-glow mb-4">📖 About Me</h2>
+            <h2 className="text-6xl font-bold text-white minecraft-glow mb-4" style={{textShadow: '3px 3px 6px rgba(0,0,0,0.95)'}}>📖 About Me</h2>
             <div className="w-32 h-2 bg-minecraft-gold mx-auto rounded-full"></div>
           </div>
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -134,12 +134,12 @@ export default function Home() {
                 <span className="text-4xl mr-4">📚</span>
                 <h3 className="text-3xl font-bold text-white minecraft-glow">My Story</h3>
               </div>
-              <div className="bg-amber-900 bg-opacity-50 p-6 rounded-xl border-2 border-amber-700">
-                <p className="text-amber-100 leading-relaxed text-lg">
-                  Currently pursuing <span className="text-yellow-300 font-bold">B.Tech in Information Technology</span> with specialization in 
-                  <span className="text-cyan-300 font-bold"> AI & Robotics</span> at Pillai College of Engineering. 
+              <div className="bg-amber-900 bg-opacity-70 p-6 rounded-xl border-2 border-amber-700">
+                <p className="text-white leading-relaxed text-lg" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>
+                  Currently pursuing <span className="text-yellow-300 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>B.Tech in Information Technology</span> with specialization in 
+                  <span className="text-cyan-300 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}> AI & Robotics</span> at Pillai College of Engineering. 
                   I&apos;m a Full Stack Developer and entrepreneur with hands-on experience and a growing interest in 
-                  <span className="text-purple-300 font-bold"> Web3</span>. I adopt a &quot;vibe coding&quot; approach, 
+                  <span className="text-purple-300 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}> Web3</span>. I adopt a &quot;vibe coding&quot; approach, 
                   leveraging AI tools to speed up development while fully understanding and customizing the code.
                 </p>
               </div>
@@ -178,9 +178,9 @@ export default function Home() {
       <section id="skills" className="py-24 bg-minecraft-dirt minecraft-texture relative">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-6xl font-bold text-white minecraft-glow mb-4">🛠️ My Toolbox</h2>
+            <h2 className="text-6xl font-bold text-white minecraft-glow mb-4" style={{textShadow: '3px 3px 6px rgba(0,0,0,0.95)'}}>🛠️ My Toolbox</h2>
             <div className="w-32 h-2 bg-minecraft-redstone mx-auto rounded-full"></div>
-            <p className="text-xl text-amber-200 mt-4">Crafting digital experiences with these powerful tools</p>
+            <p className="text-xl text-white mt-4 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>Crafting digital experiences with these powerful tools</p>
           </div>
           
           {/* Inventory Grid */}
@@ -239,8 +239,8 @@ export default function Home() {
             ].map((achievement, index) => (
               <div key={index} className="minecraft-block bg-minecraft-gold minecraft-texture p-6 rounded-xl text-center hover:scale-105 transition-transform">
                 <div className="text-4xl mb-3">{achievement.icon}</div>
-                <h3 className="text-white font-bold text-lg mb-2">{achievement.title}</h3>
-                <p className="text-yellow-200 text-sm">{achievement.desc}</p>
+                <h3 className="text-white font-bold text-lg mb-2" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>{achievement.title}</h3>
+                <p className="text-white text-sm font-bold" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>{achievement.desc}</p>
               </div>
             ))}
           </div>
@@ -255,21 +255,21 @@ export default function Home() {
       <section id="experience" className="py-24 bg-minecraft-obsidian minecraft-texture relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-6xl font-bold text-white minecraft-glow mb-4">🗺️ My Epic Journey</h2>
+            <h2 className="text-6xl font-bold text-white minecraft-glow mb-4" style={{textShadow: '3px 3px 6px rgba(0,0,0,0.95)'}}>🗺️ My Epic Journey</h2>
             <div className="w-32 h-2 bg-minecraft-emerald mx-auto rounded-full mb-4"></div>
-            <p className="text-xl text-green-200">From Noob to Pro - A Developer&apos;s Quest</p>
+            <p className="text-xl text-white font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>From Noob to Pro - A Developer&apos;s Quest</p>
           </div>
 
           {/* Quest Progress Bar */}
           <div className="bg-minecraft-stone minecraft-texture p-6 rounded-2xl border-4 border-gray-800 mb-12">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-white font-bold text-lg">🏆 Career Progress</span>
-              <span className="text-green-400 font-bold">Level 25 Developer</span>
+              <span className="text-white font-bold text-lg" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>🏆 Career Progress</span>
+              <span className="text-green-400 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>Level 25 Developer</span>
             </div>
             <div className="bg-gray-700 h-4 rounded-full border-2 border-gray-600 overflow-hidden">
               <div className="bg-gradient-to-r from-green-400 via-yellow-400 to-red-400 h-full rounded-full animate-pulse" style={{width: '85%'}}></div>
             </div>
-            <div className="flex justify-between text-sm text-gray-300 mt-2">
+            <div className="flex justify-between text-sm text-white font-bold mt-2" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>
               <span>Beginner</span>
               <span>Intermediate</span>
               <span>Expert</span>
@@ -288,9 +288,9 @@ export default function Home() {
                 {
                   title: "🔍 Technical Intern",
                   company: "Qoneqt",
-                  period: "May 2024 - Present",
+                  period: "May 2025 - August 2025",
                   description: "Testing mobile and web applications, identifying bugs and glitches, reporting issues to development teams. Quality assurance and user experience testing.",
-                  level: "Current Quest",
+                  level: "Advanced Quest",
                   xp: "2000 XP",
                   achievements: ["QA Testing", "Bug Reporting", "App Analysis"],
                   color: "bg-minecraft-redstone",
@@ -300,7 +300,7 @@ export default function Home() {
                 {
                   title: "🚀 Co-founder & Tech Lead",
                   company: "Areion",
-                  period: "Mar 2023 - Present",
+                  period: "April 2024 - Present",
                   description: "Co-founded Areion, empowering brands with digital growth strategies, freelance talent, and smart tools. Built the agency's tech ecosystem including areion.biz platform.",
                   level: "Current Quest",
                   xp: "5000 XP",
@@ -324,7 +324,7 @@ export default function Home() {
                 {
                   title: "🌐 Web Developer Intern",
                   company: "Wanderworld Holidays, Seawoods",
-                  period: "April 2023 - July 2023",
+                  period: "April 2025 - July 2025",
                   description: "Built the company's travel website with modern UI/UX, contact forms, and tour listing system.",
                   level: "First Quest",
                   xp: "1500 XP",
@@ -358,8 +358,8 @@ export default function Home() {
                       </div>
 
                       {/* Quest Description */}
-                      <div className="bg-black bg-opacity-30 p-3 md:p-4 rounded-xl mb-4 border-2 border-gray-700">
-                        <p className="text-gray-200 leading-relaxed text-sm md:text-base">{quest.description}</p>
+                      <div className="bg-black bg-opacity-50 p-3 md:p-4 rounded-xl mb-4 border-2 border-gray-700">
+                        <p className="text-white leading-relaxed text-sm md:text-base" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>{quest.description}</p>
                       </div>
 
                       {/* Achievements Unlocked */}
@@ -382,12 +382,12 @@ export default function Home() {
 
                       {/* Quest Duration */}
                       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
-                        <span className="text-gray-300 text-xs md:text-sm flex items-center">
+                        <span className="text-white text-xs md:text-sm flex items-center font-bold" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>
                           <span className="mr-2">📅</span>
                           {quest.period}
                         </span>
                         <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                          <span className="text-green-400 font-bold text-xs md:text-sm">Quest Completed! ✅</span>
+                          <span className="text-green-400 font-bold text-xs md:text-sm" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>Quest Completed! ✅</span>
                         </div>
                       </div>
                     </div>
@@ -405,10 +405,10 @@ export default function Home() {
             <div className="flex justify-center mt-16">
               <div className="minecraft-block bg-minecraft-grass minecraft-texture p-6 rounded-2xl text-center">
                 <div className="text-4xl mb-2">🌱</div>
-                <h3 className="text-white font-bold text-xl mb-2">Journey Begins</h3>
-                <p className="text-gray-300">I&apos;m always excited to discuss new opportunities and collaborations.</p>
+                <h3 className="text-white font-bold text-xl mb-2" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>Journey Begins</h3>
+                <p className="text-white font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>I&apos;m always excited to discuss new opportunities and collaborations.</p>
                 <div className="mt-4">
-                  <span className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-bold">
+                  <span className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-bold" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>
                     Origin Story
                   </span>
                 </div>
@@ -426,8 +426,8 @@ export default function Home() {
             ].map((stat, index) => (
               <div key={index} className="minecraft-block bg-minecraft-stone minecraft-texture p-6 rounded-xl text-center hover:scale-110 transition-transform">
                 <div className="text-3xl mb-3">{stat.icon}</div>
-                <div className="text-3xl font-bold text-white minecraft-glow mb-1">{stat.value}</div>
-                <div className="text-gray-300 text-sm">{stat.label}</div>
+                <div className="text-3xl font-bold text-white minecraft-glow mb-1" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>{stat.value}</div>
+                <div className="text-white text-sm font-bold" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>{stat.label}</div>
               </div>
             ))}
           </div>
@@ -443,7 +443,7 @@ export default function Home() {
       {/* Projects Section */}
       <section id="projects" className="py-20 bg-minecraft-stone">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-white mb-12">My Builds</h2>
+          <h2 className="text-4xl font-bold text-center text-white mb-12" style={{textShadow: '3px 3px 6px rgba(0,0,0,0.95)'}}>My Builds</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
@@ -460,13 +460,13 @@ export default function Home() {
                 color: "bg-minecraft-diamond",
                 link: "https://areion.biz"
               },
-              {
-                title: "Cititor Bookstore",
-                description: "Complete online bookstore platform with secure login, book search, and purchase features",
-                tech: ["React", "Database", "Full Stack"],
-                color: "bg-minecraft-gold",
-                link: null
-              },
+              // {
+              //   title: "Cititor Bookstore",
+              //   description: "Complete online bookstore platform with secure login, book search, and purchase features",
+              //   tech: ["React", "Database", "Full Stack"],
+              //   color: "bg-minecraft-gold",
+              //   link: null
+              // },
               {
                 title: "Wanderworld Holidays",
                 description: "Travel website with modern UI/UX, contact forms, and tour listing system",
@@ -486,15 +486,15 @@ export default function Home() {
                 description: "AI-powered HealthCare Platform built on blockchain technology",
                 tech: ["Blockchain", "AI", "Healthcare"],
                 color: "bg-minecraft-endstone",
-                link: null
+                link: "https://medichain-decentralized-9.onrender.com/"
               }
             ].map((project, index) => (
               <div
                 key={index}
                 className={`${project.color} border-4 border-gray-800 p-6 rounded-lg shadow-minecraft hover:shadow-minecraft-hover transition-all duration-200 transform hover:-translate-y-2`}
               >
-                <h3 className="text-xl font-bold text-white mb-3">{project.title}</h3>
-                <p className="text-gray-300 mb-8">{project.description}</p>
+                <h3 className="text-xl font-bold text-white mb-3" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>{project.title}</h3>
+                <p className="text-white mb-8 font-semibold" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (
                     <span
@@ -528,9 +528,9 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-minecraft-obsidian">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-center text-white mb-12">Let&apos;s Build Together</h2>
+          <h2 className="text-4xl font-bold text-center text-white mb-12" style={{textShadow: '3px 3px 6px rgba(0,0,0,0.95)'}}>Let&apos;s Build Together</h2>
           <div className="bg-minecraft-dirt border-4 border-gray-800 p-8 rounded-lg shadow-minecraft">
-            <p className="text-xl text-gray-200 mb-8">
+            <p className="text-xl text-white mb-8 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>
               Ready to start a new adventure? Let&apos;s craft something amazing together!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

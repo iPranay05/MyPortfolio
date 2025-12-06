@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --foreground: #2F4F4F;
+  --foreground: #1a1a1a;
 }
 
 body {
@@ -14,6 +14,17 @@ body {
   image-rendering: pixelated;
   min-height: 100vh;
   position: relative;
+}
+
+/* Improved text contrast */
+.text-readable {
+  color: #1a1a1a;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.text-readable-light {
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 /* Minecraft block texture effect */
@@ -139,7 +150,8 @@ body {
     0 0 5px rgba(255, 255, 255, 0.8),
     0 0 10px rgba(255, 255, 255, 0.6),
     0 0 15px rgba(255, 255, 255, 0.4),
-    2px 2px 0px rgba(0, 0, 0, 0.8);
+    2px 2px 4px rgba(0, 0, 0, 0.95),
+    3px 3px 0px rgba(0, 0, 0, 0.8);
 }
 
 /* Inventory slot styling */

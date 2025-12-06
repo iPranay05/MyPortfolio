@@ -1,36 +1,192 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Minecraft Portfolio - Pranay Nair
 
-## Getting Started
+A unique, Minecraft-themed portfolio website showcasing my journey as a Full Stack Developer and Entrepreneur. Built with Next.js 15 and Tailwind CSS, featuring immersive gaming aesthetics and responsive design.
 
-First, run the development server:
+## Features
 
+### Minecraft-Themed Design
+- Authentic Minecraft block textures and colors
+- Floating animations and interactive elements
+- Gaming-inspired UI components and buttons
+- Pixelated fonts and retro styling
+
+### Fully Responsive
+- Mobile-first design approach
+- Collapsible hamburger menu for mobile
+- Optimized layouts for all screen sizes
+- Touch-friendly interactions
+
+### Epic Journey Timeline
+- Interactive career progression display
+- Quest-style experience cards
+- Achievement badges and XP system
+- Mobile-optimized single-column layout
+
+### Skills Inventory
+- Gaming inventory-style skill showcase
+- Level indicators for each technology
+- Hover tooltips with proficiency levels
+- Achievement badges for expertise areas
+
+### Project Showcase
+- Minecraft block-styled project cards
+- Live project links and demos
+- Technology stack badges
+- Hover animations and effects
+
+## Tech Stack
+
+- Framework: Next.js 15 (App Router)
+- Styling: Tailwind CSS
+- Language: TypeScript
+- Deployment: Vercel
+- Version Control: Git & GitHub
+
+## Sections
+
+1. Hero Section - Introduction with Minecraft aesthetics
+2. About Me - Personal story and background
+3. Skills - Technical expertise in inventory format
+4. Experience - Career journey as epic quests
+5. Projects - Portfolio of built applications
+6. Contact - Get in touch section
+
+## Installation & Setup
+
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn package manager
+
+### Local Development
+
+1. Clone the repository
+```bash
+git clone https://github.com/iPranay05/MyPortfolio.git
+cd MyPortfolio/minecraft-portfolio
+```
+
+2. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Run development server
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open in browser
+Navigate to [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+This project is deployed on Vercel. Any push to the main branch automatically triggers a new deployment.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Live Demo**: [https://pranayy.vercel.app](https://pranayy.vercel.app)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Deploy Your Own
 
-## Deploy on Vercel
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/iPranay05/MyPortfolio)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+minecraft-portfolio/
+├── src/
+│   ├── app/
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   └── components/
+│       ├── MinecraftBlock.tsx
+│       └── InventorySlot.tsx
+├── public/
+│   ├── Pranay Nair (2)[1].pdf
+│   └── *.svg icons
+├── tailwind.config.js
+└── package.json
+```
+
+## Key Features Explained
+
+### Minecraft Aesthetics
+- Custom CSS classes for block textures
+- Authentic color palette matching Minecraft blocks
+- Floating animations for immersive experience
+
+### Responsive Navigation
+- Desktop: Horizontal navigation bar
+- Mobile: Collapsible hamburger menu with grid layout
+- Smooth scroll navigation between sections
+
+### Interactive Elements
+- Hover effects on all interactive components
+- Scale animations on buttons and cards
+- Smooth transitions throughout the site
+
+## Customization
+
+### Adding New Projects
+Edit the projects array in `src/app/page.tsx`:
+
+```typescript
+{
+  title: "Your Project Name",
+  description: "Project description",
+  tech: ["React", "Node.js", "MongoDB"],
+  color: "bg-minecraft-emerald",
+  link: "https://your-project-link.com"
+}
+```
+
+### Modifying Skills
+Update the skills array with your technologies:
+
+```typescript
+{ name: 'Technology', color: 'bg-color', icon: '', level: 5 }
+```
+
+### Changing Experience
+Add your work experience in the quest format:
+
+```typescript
+{
+  title: "Your Role",
+  company: "Company Name", 
+  period: "Start - End",
+  description: "What you did...",
+  // ... other properties
+}
+```
+
+## Contact
+
+- Email: pranaynair05@gmail.com
+- LinkedIn: [linkedin.com/in/ipranay05](https://linkedin.com/in/ipranay05)
+- GitHub: [github.com/ipranay05](https://github.com/ipranay05)
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## Acknowledgments
+
+- Minecraft for the amazing visual inspiration
+- Next.js team for the excellent framework
+- Tailwind CSS for the utility-first styling approach
+- Vercel for seamless deployment platform
+
+---
+
+**Built with  and lots of  in the Minecraft universe by Pranay Nair**
