@@ -218,7 +218,7 @@ export default function Home() {
                   </div>
                 </div>
                 <h3 className="font-industrial text-xl text-white mb-4 uppercase">AI Synergy</h3>
-                <p className="text-gray-400 font-tech">Pragmatic "vibe coding" approach. Leveraging advanced LLMs (Gemini) to construct rapid prototypes and production-ready applications swiftly.</p>
+                <p className="text-gray-400 font-tech">Pragmatic &quot;vibe coding&quot; approach. Leveraging advanced LLMs (Gemini) to construct rapid prototypes and production-ready applications swiftly.</p>
               </div>
             </div>
           </div>
@@ -245,12 +245,14 @@ export default function Home() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gsap-stagger-child">
             {[
-              { n: 'JavaScript', c: 'Core' }, { n: 'TypeScript', c: 'Core' },
+              { n: 'JavaScript', c: 'Lang' }, { n: 'Python', c: 'Lang' }, 
               { n: 'React', c: 'Frontend' }, { n: 'Next.js', c: 'Frontend' },
-              { n: 'Node.js', c: 'Backend' }, { n: 'Python', c: 'Backend' },
-              { n: 'MongoDB', c: 'Database' }, { n: 'PostgreSQL', c: 'Database' },
-              { n: 'Web3', c: 'Specialty' }, { n: 'Solidity', c: 'Specialty' },
-              { n: 'AI/ML', c: 'Compute' }, { n: 'Gemini', c: 'Integration' },
+              { n: 'Node.js', c: 'Backend' }, { n: 'Solidity', c: 'Web3' },
+              { n: 'MongoDB', c: 'Database' }, { n: 'MySQL', c: 'Database' },
+              { n: 'Supabase', c: 'Database' }, { n: 'Git/GitHub', c: 'Tools' },
+              { n: 'Vercel / IPFS', c: 'Tools' }, { n: 'Figma / Canva', c: 'Design' },
+              { n: 'Gemini API', c: 'AI' }, { n: 'Anthropic API', c: 'AI' },
+              { n: 'Avalanche', c: 'Web3' }, { n: 'Web3.js', c: 'Web3' },
             ].map((tech) => (
               <div key={tech.n} className="group border border-white/10 bg-[#050507] p-6 relative overflow-hidden hover:border-[#ff4800]/50 transition-colors">
                 <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ff4800] to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
@@ -281,11 +283,12 @@ export default function Home() {
 
             <div className="space-y-24">
               {[
-                { t: "Technical Intern", c: "Qoneqt", d: "May 2025 - August 2025", p: "Rigorous QA testing for diverse mobile and web ecosystems. Automated glitch tracking paradigms.", id: "Lvl 4" },
-                { t: "Co-founder & Tech Lead", c: "Areion", d: "April 2024 - Present", p: "Architected areion.biz platform from ground zero. Lead digital deployment strategies & infrastructure scale.", id: "Lvl 3" },
-                { t: "Full Stack Developer", c: "Cititor", d: "Mar 2023 - Dec 2024", p: "Engineered high-concurrency online bookstore backend and interactive React frontend. Managed DB integrations.", id: "Lvl 2" },
-                { t: "Web Developer Intern", c: "Wanderworld Holidays", d: "April 2025 - July 2025", p: "Designed structural UI/UX routing and tour listings for a seamless booking interface.", id: "Lvl 1" },
-              ].reverse().map((exp, idx) => (
+                { t: "Co-founder & COO", c: "Areion", d: "April 2024 - Present", p: "Co-founded Areion, a business development agency. Built the agency's tech ecosystem incl. areion.biz, connecting clients with top-tier freelance services.", id: "Lvl 5" },
+                { t: "Web Developer Intern", c: "Pillai College of Engineering", d: "Sept 2025 - Nov 2025", p: "Contributed to the development of the official college website. Worked on frontend implementation, UI improvements, and collaborative development with the core team.", id: "Lvl 4" },
+                { t: "QA & Testing Intern", c: "Qoneqt", d: "April 2025 - July 2025", p: "Performed manual testing across iOS, Android, and web platforms to identify bugs and improve product quality. Documented test cases, tracked defects, and coordinated with developers.", id: "Lvl 3" },
+                { t: "Web Developer Intern", c: "Wanderworld Holidays", d: "April 2025 - July 2025", p: "Built the company's travel website: Wanderworld Holidays. Integrated modern UI/UX, contact forms, and a tour listing system.", id: "Lvl 2" },
+                { t: "Full Stack Developer", c: "Cititor", d: "Mar 2023 - March 2024", p: "Designed and developed a complete online bookstore platform with a secure login system, book search, and purchase features. Handled frontend (React) and database management.", id: "Lvl 1" },
+              ].map((exp, idx) => (
                 <div key={idx} className="gsap-fade-in relative flex items-center w-full pl-20 md:pl-0">
                   {/* Node point */}
                   <div className="absolute left-6 md:left-1/2 w-4 h-4 rounded-full bg-[#050507] border-2 border-[#ff4800] transform -translate-x-[calc(50%-1px)] md:-translate-x-1/2 z-10 shadow-[0_0_15px_#ff4800]"></div>
