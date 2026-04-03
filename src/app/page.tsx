@@ -1,561 +1,390 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Home() {
+  const container = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  useGSAP(() => {
+    // Advanced Initial Hero Animations
+    const tl = gsap.timeline();
+    
+    tl.to('.loader-overlay', {
+      yPercent: -100,
+      duration: 1.2,
+      ease: 'power4.inOut',
+      delay: 0.5,
+      onComplete: () => {
+        gsap.set('.loader-overlay', { display: 'none' });
+      }
+    });
+
+    tl.fromTo('.hero-text', {
+      y: 50,
+      opacity: 0,
+      skewY: 5
+    }, {
+      y: 0,
+      opacity: 1,
+      skewY: 0,
+      duration: 1,
+      stagger: 0.15,
+      ease: 'power3.out',
+    }, '-=0.3');
+
+    tl.fromTo('.hero-dec', { scaleX: 0 }, { scaleX: 1, duration: 1, ease: 'expo.out' }, '-=0.5');
+    tl.fromTo('.nav-wrap', { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.8');
+
+    // Scroll Trigger Section Reveals
+    gsap.utils.toArray<HTMLElement>('.gsap-fade-in').forEach((el) => {
+      gsap.fromTo(el, {
+        opacity: 0,
+        y: 40
+      }, {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+        },
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out'
+      });
+    });
+
+    gsap.utils.toArray<HTMLElement>('.gsap-stagger-child').forEach((container) => {
+      gsap.fromTo(container.children, {
+        opacity: 0,
+        y: 30
+      }, {
+        scrollTrigger: {
+          trigger: container,
+          start: 'top 80%',
+        },
+        opacity: 1,
+        y: 0,
+        stagger: 0.1,
+        duration: 0.6,
+        ease: 'power2.out'
+      });
+    });
+    
+    // Timeline connector glow
+    gsap.to('.timeline-connector', {
+      scrollTrigger: {
+        trigger: '#experience',
+        start: 'top center',
+        end: 'bottom center',
+        scrub: 1
+      },
+      height: '100%',
+      ease: 'none'
+    });
+
+  }, { scope: container });
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-400 via-green-400 to-green-600">
+    <div ref={container} className="min-h-screen text-slate-200 relative bg-grid">
+      {/* Dynamic Cursor Glow */}
+      <div 
+        className="mouse-glow"
+        style={{ 
+          '--mouse-x': `${mousePosition.x}px`, 
+          '--mouse-y': `${mousePosition.y}px` 
+        } as React.CSSProperties}
+      />
+      <div className="noise-overlay" />
+      
+      {/* Intro Reveal Screen */}
+      <div className="loader-overlay fixed top-0 left-0 w-full h-screen bg-[#050507] z-[100] flex items-center justify-center pointer-events-none">
+        <div className="text-[#ff4800] font-tech text-3xl tracking-[0.5em] animate-pulse">INIT_SEQ_</div>
+      </div>
+
       {/* Navigation */}
-      <nav className="bg-minecraft-stone minecraft-texture border-b-4 border-gray-900 p-3 md:p-6 sticky top-0 z-50 shadow-lg">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex justify-between items-center">
-            <h1 className="text-xl md:text-3xl font-bold text-white minecraft-glow">⛏️ Pranay Nair</h1>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex gap-3">
-              {['About', 'Skills', 'Experience', 'Projects', 'Contact'].map((item) => (
-                <button
-                  key={item}
-                  className="minecraft-btn px-5 py-3 text-white font-semibold text-sm hover:scale-105 transition-transform"
-                  onClick={() => document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden minecraft-btn px-3 py-2 text-white font-semibold text-sm"
-              onClick={() => {
-                const menu = document.getElementById('mobile-menu');
-                menu?.classList.toggle('hidden');
-              }}
-            >
-              ☰ Menu
-            </button>
+      <nav className="nav-wrap fixed top-0 w-full z-50 mix-blend-difference px-6 py-8">
+        <div className="max-w-7xl mx-auto flex justify-between items-center border-b border-white/10 pb-4">
+          <div className="text-xl font-bold tracking-widest text-white font-industrial flex items-center gap-2">
+            <span className="w-3 h-3 bg-[#ff4800] inline-block animate-pulse"></span>
+            PRANAY <span className="opacity-50">NAIR</span>
           </div>
-
-          {/* Mobile Navigation Menu */}
-          <div id="mobile-menu" className="hidden md:hidden mt-4 pb-2">
-            <div className="grid grid-cols-2 gap-2">
-              {['About', 'Skills', 'Experience', 'Projects', 'Contact'].map((item) => (
-                <button
-                  key={item}
-                  className="minecraft-btn px-4 py-2 text-white font-semibold text-sm hover:scale-105 transition-transform w-full"
-                  onClick={() => {
-                    document.getElementById(item.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
-                    document.getElementById('mobile-menu')?.classList.add('hidden');
-                  }}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
+          <div className="hidden md:flex gap-8 text-sm tracking-[0.2em] font-tech text-white/70">
+            {['About', 'Skills', 'Experience', 'Projects', 'Contact'].map((item) => (
+               <a 
+                key={item} 
+                href={`#${item.toLowerCase()}`}
+                className="hover:text-[#ff4800] transition-colors uppercase relative group"
+               >
+                 {item}
+                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#ff4800] transition-all group-hover:w-full"></span>
+               </a>
+            ))}
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 md:pt-20">
-        <div className="text-center z-10 max-w-4xl mx-auto px-4">
-          <div className="minecraft-block bg-minecraft-dirt minecraft-texture p-6 md:p-12 rounded-2xl mb-8 md:mb-12 animate-float">
-            <div className="mb-4 md:mb-6">
-              <span className="text-6xl md:text-8xl">💻</span>
-            </div>
-            <h1 className="text-4xl md:text-7xl font-bold text-white minecraft-glow mb-4 md:mb-6">Pranay Nair</h1>
-            <div className="bg-minecraft-wood minecraft-texture p-4 md:p-6 rounded-xl mb-4 md:mb-6 border-4 border-amber-900">
-              <p className="text-xl md:text-3xl text-white mb-3 md:mb-4 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>Full Stack Developer & Entrepreneur</p>
-              <p className="text-sm md:text-xl text-white leading-relaxed" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>
-                🚀 Co-founder with hands-on experience and growing interest in Web3<br/>
-                💡 Passionate about building businesses that solve real problems<br/>
-                ⚡ Using &quot;vibe coding&quot; and AI-powered solutions
-              </p>
-            </div>
+      <section className="min-h-screen flex flex-col justify-center px-6 relative overflow-hidden pt-20">
+        <div className="max-w-7xl mx-auto w-full z-10">
+          <div className="flex items-center gap-4 mb-8 hero-text">
+            <div className="w-16 h-[2px] bg-[#ff4800]"></div>
+            <p className="text-[#ff4800] font-tech tracking-[0.4em] uppercase text-sm font-bold">Protocol Active // V1.0</p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
-            <button 
-              className="minecraft-btn px-6 py-3 md:px-10 md:py-5 text-lg md:text-2xl text-white font-bold hover:scale-110 transition-transform"
-              onClick={(e) => {
-                e.currentTarget.classList.add('spinning');
-                document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              🌍 Explore My World
-            </button>
-            <a 
-              href="/Pranay Nair.pdf" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="minecraft-btn px-6 py-3 md:px-10 md:py-5 text-lg md:text-2xl text-white font-bold hover:scale-110 transition-transform block text-center"
-            >
-              📜 View Resume
-            </a>
+          
+          <h1 className="hero-text text-6xl md:text-[8rem] font-bold leading-[0.9] tracking-tighter mb-4 text-white uppercase outline-text-hover cursor-default font-industrial">
+            Pranay
+          </h1>
+          <h1 className="hero-text text-6xl md:text-[8rem] font-bold leading-[0.9] tracking-tighter mb-12 text-white uppercase ml-0 md:ml-32 font-industrial outline-text">
+            Nair
+          </h1>
+          
+          <div className="hero-dec h-[1px] w-full bg-gradient-to-r from-white/20 to-transparent mb-12 origin-left"></div>
+          
+          <div className="hero-text flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
+            <div className="max-w-xl">
+              <h2 className="text-xl md:text-3xl text-gray-300 font-light tracking-wide font-tech mb-4 uppercase">
+                Full Stack Developer & <br /> <span className="font-bold text-white">AI / Web3 Integrator</span>
+              </h2>
+              <p className="text-sm text-gray-500 font-mono tracking-widest uppercase">Executing highly optimized user experiences with robust backend architecture.</p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-6">
+              <a href="#projects" className="industrial-btn px-8 py-4 text-sm tracking-[0.2em]">
+                View Deployments <span className="ml-2">↗</span>
+              </a>
+              <a href="/Pranay Nair.pdf" target="_blank" className="industrial-btn px-8 py-4 text-sm tracking-[0.2em] !border-[#ff4800] !text-[#ff4800] hover:!text-white">
+                Access Resume <span className="ml-2">↓</span>
+              </a>
+            </div>
           </div>
         </div>
         
-        {/* Enhanced Floating Minecraft blocks */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={i}
-              className={`absolute minecraft-block animate-block-float`}
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 6}s`,
-                width: `${20 + Math.random() * 20}px`,
-                height: `${20 + Math.random() * 20}px`,
-              }}
-            >
-              <div className={`w-full h-full bg-minecraft-${['grass', 'dirt', 'stone', 'diamond', 'gold'][i % 5]} minecraft-texture rounded border-2 border-gray-800`}>
-                <div className="w-full h-full flex items-center justify-center text-white font-bold text-xs">
-                  {['⛏️', '🌱', '🪨', '💎', '🏆'][i % 5]}
-                </div>
-              </div>
-            </div>
-          ))}
+        {/* Decor */}
+        <div className="absolute right-0 bottom-20 opacity-20 pointer-events-none transform rotate-90 origin-right">
+          <h1 className="text-[12rem] font-industrial outline-text tracking-tighter">001</h1>
         </div>
-
-        {/* Minecraft clouds */}
-        <div className="absolute top-10 left-10 w-20 h-12 bg-white opacity-80 rounded-lg animate-float" style={{animationDelay: '1s'}}></div>
-        <div className="absolute top-20 right-20 w-16 h-10 bg-white opacity-70 rounded-lg animate-float" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-32 left-1/3 w-24 h-14 bg-white opacity-60 rounded-lg animate-float" style={{animationDelay: '0.5s'}}></div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-24 bg-minecraft-grass minecraft-texture relative">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-6xl font-bold text-white minecraft-glow mb-4" style={{textShadow: '3px 3px 6px rgba(0,0,0,0.95)'}}>📖 About Me</h2>
-            <div className="w-32 h-2 bg-minecraft-gold mx-auto rounded-full"></div>
-          </div>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="minecraft-block bg-minecraft-wood minecraft-texture p-10 rounded-2xl">
-              <div className="flex items-center mb-6">
-                <span className="text-4xl mr-4">📚</span>
-                <h3 className="text-3xl font-bold text-white minecraft-glow">My Story</h3>
+      <section id="about" className="py-40 px-6 relative border-t border-white/5 bg-[#050507]">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row gap-20">
+            <div className="w-full lg:w-1/3 gsap-fade-in">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-[#00f0ff] font-mono text-xs tracking-widest">[ SEC 01 ]</span>
+                <div className="h-[1px] flex-grow bg-white/10"></div>
               </div>
-              <div className="bg-amber-900 bg-opacity-70 p-6 rounded-xl border-2 border-amber-700">
-                <p className="text-white leading-relaxed text-lg" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>
-                  Currently pursuing <span className="text-yellow-300 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>B.Tech in Information Technology</span> with specialization in 
-                  <span className="text-cyan-300 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}> AI & Robotics</span> at Pillai College of Engineering. 
-                  I&apos;m a Full Stack Developer and entrepreneur with hands-on experience and a growing interest in 
-                  <span className="text-purple-300 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}> Web3</span>. I adopt a &quot;vibe coding&quot; approach, 
-                  leveraging AI tools to speed up development while fully understanding and customizing the code.
-                </p>
+              <h2 className="text-5xl md:text-6xl font-industrial font-bold uppercase mb-8">System<br/><span className="outline-text">Core</span></h2>
+              <p className="font-tech text-gray-400 text-lg leading-relaxed mb-8 border-l border-[#ff4800] pl-6">
+                Currently pursuing B.Tech in IT specializing in AI & Robotics. I build hyper-optimized apps blending fluid UI with complex business logic.
+              </p>
+              <div className="flex gap-4">
+                <div className="w-16 h-1 bg-[#ff4800]"></div>
+                <div className="w-4 h-1 bg-[#00f0ff]"></div>
               </div>
             </div>
-            <div className="minecraft-block bg-minecraft-stone minecraft-texture p-10 rounded-2xl">
-              <div className="flex items-center mb-6">
-                <span className="text-4xl mr-4">⚡</span>
-                <h3 className="text-3xl font-bold text-white minecraft-glow">What I Do</h3>
-              </div>
-              <div className="space-y-4">
-                {[
-                  { icon: '🚀', text: 'Co-founder & COO at Areion', color: 'bg-red-600' },
-                  { icon: '💻', text: 'Full Stack Development', color: 'bg-blue-600' },
-                  { icon: '🌐', text: 'Web3 & Blockchain Solutions', color: 'bg-purple-600' },
-                  { icon: '🤖', text: 'AI-Powered Applications', color: 'bg-green-600' },
-                  { icon: '🏆', text: 'Hackathon Winner', color: 'bg-yellow-600' },
-                ].map((item, index) => (
-                  <div key={index} className={`${item.color} minecraft-texture p-4 rounded-xl border-3 border-gray-800 hover:scale-105 transition-transform`}>
-                    <div className="flex items-center">
-                      <span className="text-2xl mr-4">{item.icon}</span>
-                      <span className="text-white font-bold text-lg">{item.text}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Decorative elements */}
-        <div className="absolute top-10 right-10 w-16 h-16 bg-minecraft-emerald minecraft-texture rounded border-4 border-gray-800 animate-float opacity-70"></div>
-        <div className="absolute bottom-10 left-10 w-12 h-12 bg-minecraft-diamond minecraft-texture rounded border-4 border-gray-800 animate-float opacity-70" style={{animationDelay: '2s'}}></div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-24 bg-minecraft-dirt minecraft-texture relative">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-6xl font-bold text-white minecraft-glow mb-4" style={{textShadow: '3px 3px 6px rgba(0,0,0,0.95)'}}>🛠️ My Toolbox</h2>
-            <div className="w-32 h-2 bg-minecraft-redstone mx-auto rounded-full"></div>
-            <p className="text-xl text-white mt-4 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>Crafting digital experiences with these powerful tools</p>
-          </div>
-          
-          {/* Inventory Grid */}
-          <div className="bg-minecraft-obsidian minecraft-texture p-8 rounded-2xl border-4 border-gray-900 mb-8">
-            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              {[
-                { name: 'JavaScript', color: 'bg-yellow-500', icon: '⚡', level: 5 },
-                { name: 'TypeScript', color: 'bg-blue-500', icon: '📘', level: 4 },
-                { name: 'React', color: 'bg-cyan-500', icon: '⚛️', level: 5 },
-                { name: 'Next.js', color: 'bg-gray-800', icon: '▲', level: 4 },
-                { name: 'Node.js', color: 'bg-green-500', icon: '🟢', level: 4 },
-                { name: 'Python', color: 'bg-yellow-600', icon: '🐍', level: 4 },
-                { name: 'AI/ML', color: 'bg-purple-500', icon: '🤖', level: 3 },
-                { name: 'Web3', color: 'bg-indigo-500', icon: '🌐', level: 3 },
-                { name: 'Blockchain', color: 'bg-orange-600', icon: '⛓️', level: 3 },
-                { name: 'MongoDB', color: 'bg-green-600', icon: '🍃', level: 4 },
-                { name: 'PostgreSQL', color: 'bg-blue-600', icon: '🐘', level: 3 },
-                { name: 'Gemini API', color: 'bg-pink-500', icon: '✨', level: 4 },
-              ].map((skill) => (
-                <div
-                  key={skill.name}
-                  className="inventory-slot minecraft-block p-4 rounded-xl hover:scale-110 transition-all duration-300 cursor-pointer group relative"
-                >
-                  <div className={`${skill.color} minecraft-texture w-full h-16 rounded-lg flex items-center justify-center mb-2 border-2 border-gray-700`}>
-                    <span className="text-2xl">{skill.icon}</span>
-                  </div>
-                  <p className="text-white font-bold text-center text-xs mb-1">{skill.name}</p>
-                  
-                  {/* Level indicator */}
-                  <div className="flex justify-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <div
-                        key={i}
-                        className={`w-2 h-2 rounded-full ${
-                          i < skill.level ? 'bg-yellow-400' : 'bg-gray-600'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  
-                  {/* Tooltip */}
-                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-3 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-                    Level {skill.level}/5
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Achievement badges */}
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { title: 'Full Stack Master', icon: '🏗️', desc: 'Frontend to Backend expertise' },
-              { title: 'AI Pioneer', icon: '🚀', desc: 'Building intelligent solutions' },
-              { title: 'Web3 Explorer', icon: '🌟', desc: 'Blockchain & decentralized apps' },
-            ].map((achievement, index) => (
-              <div key={index} className="minecraft-block bg-minecraft-gold minecraft-texture p-6 rounded-xl text-center hover:scale-105 transition-transform">
-                <div className="text-4xl mb-3">{achievement.icon}</div>
-                <h3 className="text-white font-bold text-lg mb-2" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>{achievement.title}</h3>
-                <p className="text-white text-sm font-bold" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>{achievement.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        {/* Floating pickaxe */}
-        <div className="absolute top-20 right-20 text-6xl animate-float opacity-60">⛏️</div>
-        <div className="absolute bottom-20 left-20 text-4xl animate-float opacity-60" style={{animationDelay: '1.5s'}}>🔨</div>
-      </section>
-
-      {/* Experience Section - Creative Journey */}
-      <section id="experience" className="py-24 bg-minecraft-obsidian minecraft-texture relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-6xl font-bold text-white minecraft-glow mb-4" style={{textShadow: '3px 3px 6px rgba(0,0,0,0.95)'}}>🗺️ My Epic Journey</h2>
-            <div className="w-32 h-2 bg-minecraft-emerald mx-auto rounded-full mb-4"></div>
-            <p className="text-xl text-white font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>From Noob to Pro - A Developer&apos;s Quest</p>
-          </div>
-
-          {/* Quest Progress Bar */}
-          <div className="bg-minecraft-stone minecraft-texture p-6 rounded-2xl border-4 border-gray-800 mb-12">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-white font-bold text-lg" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>🏆 Career Progress</span>
-              <span className="text-green-400 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>Level 25 Developer</span>
-            </div>
-            <div className="bg-gray-700 h-4 rounded-full border-2 border-gray-600 overflow-hidden">
-              <div className="bg-gradient-to-r from-green-400 via-yellow-400 to-red-400 h-full rounded-full animate-pulse" style={{width: '85%'}}></div>
-            </div>
-            <div className="flex justify-between text-sm text-white font-bold mt-2" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>
-              <span>Beginner</span>
-              <span>Intermediate</span>
-              <span>Expert</span>
-              <span>Master</span>
-            </div>
-          </div>
-
-          {/* Interactive Timeline */}
-          <div className="relative">
-            {/* Central Path - Hidden on mobile */}
-            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-2 bg-minecraft-redstone h-full rounded-full"></div>
             
-            {/* Journey Milestones */}
-            <div className="space-y-8 md:space-y-16">
-              {[
-                {
-                  title: "🔍 Technical Intern",
-                  company: "Qoneqt",
-                  period: "May 2025 - August 2025",
-                  description: "Testing mobile and web applications, identifying bugs and glitches, reporting issues to development teams. Quality assurance and user experience testing.",
-                  level: "Advanced Quest",
-                  xp: "2000 XP",
-                  achievements: ["QA Testing", "Bug Reporting", "App Analysis"],
-                  color: "bg-minecraft-redstone",
-                  icon: "🔧",
-                  side: "left"
-                },
-                {
-                  title: "🚀 Co-founder & Tech Lead",
-                  company: "Areion",
-                  period: "April 2024 - Present",
-                  description: "Co-founded Areion, empowering brands with digital growth strategies, freelance talent, and smart tools. Built the agency's tech ecosystem including areion.biz platform.",
-                  level: "Current Quest",
-                  xp: "5000 XP",
-                  achievements: ["Leadership", "Business Strategy", "Team Building"],
-                  color: "bg-minecraft-diamond",
-                  icon: "👑",
-                  side: "right"
-                },
-                {
-                  title: "💻 Full Stack Developer",
-                  company: "Cititor (Online Bookstore)",
-                  period: "Mar 2023 - Dec 2024",
-                  description: "Designed and developed complete online bookstore platform with secure login, book search, and purchase features. Handled frontend (React) and database management.",
-                  level: "Advanced Quest",
-                  xp: "3500 XP",
-                  achievements: ["Full Stack", "React Master", "Database Pro"],
-                  color: "bg-minecraft-emerald",
-                  icon: "⚔️",
-                  side: "left"
-                },
-                {
-                  title: "🌐 Web Developer Intern",
-                  company: "Wanderworld Holidays, Seawoods",
-                  period: "April 2025 - July 2025",
-                  description: "Built the company's travel website with modern UI/UX, contact forms, and tour listing system.",
-                  level: "First Quest",
-                  xp: "1500 XP",
-                  achievements: ["UI/UX", "Frontend", "Team Player"],
-                  color: "bg-minecraft-gold",
-                  icon: "🗡️",
-                  side: "right"
-                }
-              ].reverse().map((quest, index) => (
-                <div key={index} className={`flex items-center ${quest.side === 'left' && 'md:flex-row-reverse'}`}>
-                  {/* Quest Card */}
-                  <div className={`w-full md:w-5/12 ${quest.side === 'left' ? 'md:mr-auto' : 'md:ml-auto'}`}>
-                    <div className={`minecraft-block ${quest.color} minecraft-texture p-4 md:p-8 rounded-2xl hover:scale-105 transition-all duration-300 cursor-pointer group`}>
-                      {/* Quest Header */}
-                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 gap-3">
-                        <div className="flex items-center">
-                          <span className="text-3xl md:text-4xl mr-3">{quest.icon}</span>
-                          <div>
-                            <h3 className="text-lg md:text-2xl font-bold text-white minecraft-glow">{quest.title}</h3>
-                            <p className="text-gray-300 text-sm md:text-base">{quest.company}</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-2 md:flex-col md:text-right">
-                          <div className="bg-yellow-500 text-black px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-bold">
-                            {quest.level}
-                          </div>
-                          <div className="bg-green-500 text-white px-2 md:px-3 py-1 rounded-full text-xs font-bold">
-                            +{quest.xp}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Quest Description */}
-                      <div className="bg-black bg-opacity-50 p-3 md:p-4 rounded-xl mb-4 border-2 border-gray-700">
-                        <p className="text-white leading-relaxed text-sm md:text-base" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>{quest.description}</p>
-                      </div>
-
-                      {/* Achievements Unlocked */}
-                      <div className="mb-4">
-                        <h4 className="text-white font-bold mb-2 flex items-center text-sm md:text-base">
-                          <span className="mr-2">🏅</span>
-                          Achievements Unlocked:
-                        </h4>
-                        <div className="flex flex-wrap gap-1 md:gap-2">
-                          {quest.achievements.map((achievement, i) => (
-                            <span
-                              key={i}
-                              className="bg-purple-600 text-white px-2 md:px-3 py-1 rounded-full text-xs font-bold border-2 border-purple-400"
-                            >
-                              {achievement}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Quest Duration */}
-                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
-                        <span className="text-white text-xs md:text-sm flex items-center font-bold" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>
-                          <span className="mr-2">📅</span>
-                          {quest.period}
-                        </span>
-                        <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                          <span className="text-green-400 font-bold text-xs md:text-sm" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>Quest Completed! ✅</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Timeline Node - Hidden on mobile */}
-                  <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-minecraft-redstone minecraft-texture rounded-full border-4 border-white items-center justify-center z-10">
-                    <span className="text-white text-xs font-bold">{3 - index}</span>
+            <div className="w-full lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6 gsap-stagger-child">
+              {/* Card 1 */}
+              <div className="cyber-card cut-corner p-8 group">
+                <div className="flex justify-between items-start mb-12">
+                  <span className="font-mono text-xs text-[#64748b] tracking-wider uppercase">Data Node A</span>
+                  <div className="text-[#ff4800]">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16v16H4z"/><path d="M4 12h16"/><path d="M12 4v16"/></svg>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {/* Starting Point */}
-            <div className="flex justify-center mt-16">
-              <div className="minecraft-block bg-minecraft-grass minecraft-texture p-6 rounded-2xl text-center">
-                <div className="text-4xl mb-2">🌱</div>
-                <h3 className="text-white font-bold text-xl mb-2" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>Journey Begins</h3>
-                <p className="text-white font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>I&apos;m always excited to discuss new opportunities and collaborations.</p>
-                <div className="mt-4">
-                  <span className="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-bold" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>
-                    Origin Story
-                  </span>
+                <h3 className="font-industrial text-xl text-white mb-4 uppercase">Architecture</h3>
+                <p className="text-gray-400 font-tech">Co-founder & Full Stack engineer crafting robust agency systems and decentralized platforms. Fluid between React/NextJS and Smart Contracts.</p>
+              </div>
+              {/* Card 2 */}
+              <div className="cyber-card cut-corner p-8 group mt-0 sm:mt-12">
+                <div className="flex justify-between items-start mb-12">
+                  <span className="font-mono text-xs text-[#64748b] tracking-wider uppercase">Data Node B</span>
+                  <div className="text-[#00f0ff]">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
                 </div>
+                <h3 className="font-industrial text-xl text-white mb-4 uppercase">AI Synergy</h3>
+                <p className="text-gray-400 font-tech">Pragmatic "vibe coding" approach. Leveraging advanced LLMs (Gemini) to construct rapid prototypes and production-ready applications swiftly.</p>
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Stats Panel */}
-          <div className="mt-16 grid md:grid-cols-4 gap-6">
+      {/* Tech Stack Section */}
+      <section id="skills" className="py-40 px-6 bg-[#0a0a0d] border-t border-white/5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#ff4800] rounded-full blur-[150px] opacity-[0.03] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#00f0ff] rounded-full blur-[150px] opacity-[0.03] pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto">
+          <div className="gsap-fade-in flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-[#ff4800] font-mono text-xs tracking-widest">[ SEC 02 ]</span>
+              </div>
+              <h2 className="text-5xl font-industrial font-bold uppercase">Tech<br/><span className="outline-text">Arsenal</span></h2>
+            </div>
+            <p className="text-[#64748b] font-mono text-xs max-w-xs text-right uppercase tracking-widest hidden md:block">
+              Integrated protocols & dependencies loaded into local environment.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gsap-stagger-child">
             {[
-              { label: "Years Coding", value: "3+", icon: "⏰" },
-              { label: "Projects Built", value: "15+", icon: "🏗️" },
-              { label: "Technologies", value: "12+", icon: "🛠️" },
-              { label: "Hackathons Won", value: "4+", icon: "🏆" }
-            ].map((stat, index) => (
-              <div key={index} className="minecraft-block bg-minecraft-stone minecraft-texture p-6 rounded-xl text-center hover:scale-110 transition-transform">
-                <div className="text-3xl mb-3">{stat.icon}</div>
-                <div className="text-3xl font-bold text-white minecraft-glow mb-1" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>{stat.value}</div>
-                <div className="text-white text-sm font-bold" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>{stat.label}</div>
+              { n: 'JavaScript', c: 'Core' }, { n: 'TypeScript', c: 'Core' },
+              { n: 'React', c: 'Frontend' }, { n: 'Next.js', c: 'Frontend' },
+              { n: 'Node.js', c: 'Backend' }, { n: 'Python', c: 'Backend' },
+              { n: 'MongoDB', c: 'Database' }, { n: 'PostgreSQL', c: 'Database' },
+              { n: 'Web3', c: 'Specialty' }, { n: 'Solidity', c: 'Specialty' },
+              { n: 'AI/ML', c: 'Compute' }, { n: 'Gemini', c: 'Integration' },
+            ].map((tech) => (
+              <div key={tech.n} className="group border border-white/10 bg-[#050507] p-6 relative overflow-hidden hover:border-[#ff4800]/50 transition-colors">
+                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#ff4800] to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                <div className="flex justify-between items-center mb-6">
+                   <div className="h-2 w-2 rounded-full bg-white/20 group-hover:bg-[#00f0ff] transition-colors"></div>
+                   <span className="text-[10px] font-mono text-[#64748b] uppercase tracking-wider">{tech.c}</span>
+                </div>
+                <h4 className="font-tech text-xl font-semibold text-white tracking-wide">{tech.n}</h4>
               </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Floating Elements */}
-        <div className="absolute top-20 left-10 text-4xl animate-float opacity-60">⚡</div>
-        <div className="absolute top-40 right-20 text-3xl animate-float opacity-60" style={{animationDelay: '1s'}}>🚀</div>
-        <div className="absolute bottom-20 left-20 text-5xl animate-float opacity-60" style={{animationDelay: '2s'}}>💎</div>
-        <div className="absolute bottom-40 right-10 text-3xl animate-float opacity-60" style={{animationDelay: '0.5s'}}>🏆</div>
+      {/* Experience Section */}
+      <section id="experience" className="py-40 px-6 bg-[#050507] border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-32 gsap-fade-in relative">
+            <h2 className="text-5xl md:text-7xl font-industrial font-bold uppercase outline-text">Operation</h2>
+            <h2 className="text-4xl md:text-5xl font-industrial font-bold uppercase text-white -mt-4">History</h2>
+          </div>
+
+          <div className="relative">
+            {/* Dark track */}
+            <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/5 transform md:-translate-x-1/2 rounded max-h-full"></div>
+            {/* Glowing line filled on scroll */}
+            <div className="timeline-connector absolute left-6 md:left-1/2 top-0 w-[2px] bg-gradient-to-b from-[#ff4800] via-[#00f0ff] to-[#ff4800] transform md:-translate-x-1/2 h-0"></div>
+
+            <div className="space-y-24">
+              {[
+                { t: "Technical Intern", c: "Qoneqt", d: "May 2025 - August 2025", p: "Rigorous QA testing for diverse mobile and web ecosystems. Automated glitch tracking paradigms.", id: "Lvl 4" },
+                { t: "Co-founder & Tech Lead", c: "Areion", d: "April 2024 - Present", p: "Architected areion.biz platform from ground zero. Lead digital deployment strategies & infrastructure scale.", id: "Lvl 3" },
+                { t: "Full Stack Developer", c: "Cititor", d: "Mar 2023 - Dec 2024", p: "Engineered high-concurrency online bookstore backend and interactive React frontend. Managed DB integrations.", id: "Lvl 2" },
+                { t: "Web Developer Intern", c: "Wanderworld Holidays", d: "April 2025 - July 2025", p: "Designed structural UI/UX routing and tour listings for a seamless booking interface.", id: "Lvl 1" },
+              ].reverse().map((exp, idx) => (
+                <div key={idx} className="gsap-fade-in relative flex items-center w-full pl-20 md:pl-0">
+                  {/* Node point */}
+                  <div className="absolute left-6 md:left-1/2 w-4 h-4 rounded-full bg-[#050507] border-2 border-[#ff4800] transform -translate-x-[calc(50%-1px)] md:-translate-x-1/2 z-10 shadow-[0_0_15px_#ff4800]"></div>
+                  
+                  <div className={`w-full md:w-5/12 ${idx % 2 === 0 ? 'md:ml-auto md:pl-16' : 'md:mr-auto md:pr-16 md:text-right'}`}>
+                    <div className="cyber-card p-8 group">
+                      <div className={`flex flex-col ${idx % 2 === 0 ? 'items-start' : 'items-start md:items-end'} mb-6`}>
+                        <span className="font-mono text-xs text-[#ff4800] tracking-widest uppercase mb-2 bg-[#ff4800]/10 px-3 py-1 rounded-sm border border-[#ff4800]/20">{exp.d}</span>
+                        <h3 className="font-industrial text-2xl text-white uppercase tracking-wider mb-1">{exp.t}</h3>
+                        <h4 className="font-tech text-gray-500 uppercase tracking-widest text-sm">{exp.c}</h4>
+                      </div>
+                      <p className={`font-tech text-gray-300 leading-relaxed ${idx % 2 !== 0 && 'md:text-right'}`}>
+                        {exp.p}
+                      </p>
+                      
+                      <div className={`absolute top-0 w-24 h-24 overflow-hidden pointer-events-none opacity-20 group-hover:opacity-100 transition-opacity duration-700 ${idx % 2 === 0 ? 'right-0' : 'left-0'}`}>
+                         <div className={`absolute w-[150%] h-[1px] bg-gradient-to-r from-transparent via-[#00f0ff] to-transparent top-1/2 ${idx % 2 === 0 ? '-right-4 rotate-45' : '-left-4 -rotate-45'}`}></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 bg-minecraft-stone">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-white mb-12" style={{textShadow: '3px 3px 6px rgba(0,0,0,0.95)'}}>My Builds</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "NyayaShyak (AI Lawyer)",
-                description: "AI-powered legal assistant built using Gemini + Kaggle data to help middle-class Indians with legal queries and constitutional help",
-                tech: ["AI/ML", "Gemini API", "Python"],
-                color: "bg-minecraft-emerald",
-                link: "https://nyayashzyak-your-legal-assistant-dvvm.vercel.app/"
-              },
-              {
-                title: "Areion Platform",
-                description: "Business development agency platform (areion.biz) connecting clients with top-tier freelance services",
-                tech: ["React", "Next.js", "Full Stack"],
-                color: "bg-minecraft-diamond",
-                link: "https://areion.biz"
-              },
-              // {
-              //   title: "Cititor Bookstore",
-              //   description: "Complete online bookstore platform with secure login, book search, and purchase features",
-              //   tech: ["React", "Database", "Full Stack"],
-              //   color: "bg-minecraft-gold",
-              //   link: null
-              // },
-              {
-                title: "Wanderworld Holidays",
-                description: "Travel website with modern UI/UX, contact forms, and tour listing system",
-                tech: ["Web Development", "UI/UX", "Frontend"],
-                color: "bg-minecraft-lapis",
-                link: "https://wander-world-holiday-vw3h.vercel.app/"
-              },
-              {
-                title: "Watchtym",
-                description: "AI-powered pitch website built for a smart wearable brand",
-                tech: ["AI", "Web Development", "Pitch"],
-                color: "bg-minecraft-redstone",
-                link: "https://watchtym.vercel.app/"
-              },
-              {
-                title: "MediChain",
-                description: "AI-powered HealthCare Platform built on blockchain technology",
-                tech: ["Blockchain", "AI", "Healthcare"],
-                color: "bg-minecraft-endstone",
-                link: "https://medichain-decentralized-9.onrender.com/"
-              }
-            ].map((project, index) => (
-              <div
-                key={index}
-                className={`${project.color} border-4 border-gray-800 p-6 rounded-lg shadow-minecraft hover:shadow-minecraft-hover transition-all duration-200 transform hover:-translate-y-2`}
-              >
-                <h3 className="text-xl font-bold text-white mb-3" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>{project.title}</h3>
-                <p className="text-white mb-8 font-semibold" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.9)'}}>{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="bg-gray-800 text-white px-2 py-1 rounded text-sm border-2 border-gray-600"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+      <section id="projects" className="py-40 px-6 bg-[#0a0a0d] border-t border-white/5 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="gsap-fade-in flex items-center gap-6 mb-20 border-b border-white/10 pb-8">
+             <h2 className="text-4xl md:text-6xl font-industrial font-bold uppercase text-white">Active <span className="text-[#ff4800]">Builds</span></h2>
+             <div className="dec-line h-2 max-w-[200px] w-full hidden md:block"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 gsap-stagger-child">
+             {[
+               { title: "NyayaShyak", tag: "AI Lawyer", desc: "AI-powered legal compliance interface driven by Gemini, interpreting Kaggle legislation datasets.", stack: ["Gemini API", "Python", "AI/ML"], link: "https://nyayashzyak-your-legal-assistant-dvvm.vercel.app/" },
+               { title: "Areion Platform", tag: "Business Agency", desc: "Corporate networking infrastructure connecting elite freelance services with enterprise clients.", stack: ["Next.js", "React", "NodeJS"], link: "https://areion.biz" },
+               { title: "Watchtym", tag: "AI Pitch Deck", desc: "Next-gen AI-powered investor pitch platform crafted for an emergent smart wearable brand.", stack: ["GenAI", "Frontend", "Animation"], link: "https://watchtym.vercel.app/" },
+               { title: "MediChain", tag: "Blockchain Health", desc: "Decentralized, AI-powered healthcare diagnostic and logging platform deployed on blockchain layers.", stack: ["Smart Contracts", "AI", "React"], link: "https://medichain-decentralized-9.onrender.com/" }
+             ].map((proj, i) => (
+                <div key={i} className="group relative bg-[#050507] border border-white/10 p-1 md:p-2 transition-colors hover:border-white/30">
+                  <div className="relative h-full bg-[#0a0a0d] border border-white/5 p-8 flex flex-col justify-between overflow-hidden cut-corner">
+                    
+                    {/* Hover Glow */}
+                    <div className="absolute -top-32 -right-32 w-64 h-64 bg-[#00f0ff] rounded-full mix-blend-screen filter blur-[100px] opacity-0 group-hover:opacity-20 transition-opacity duration-700"></div>
+
+                    <div className="relative z-10">
+                      <div className="flex justify-between items-start mb-8">
+                         <div>
+                           <p className="font-mono text-[10px] text-[#00f0ff] tracking-widest uppercase mb-2">TARGET_LOCKED // {proj.tag}</p>
+                           <h3 className="font-industrial text-3xl text-white uppercase">{proj.title}</h3>
+                         </div>
+                         <span className="font-industrial text-4xl text-white/5">0{i+1}</span>
+                      </div>
+                      
+                      <p className="font-tech text-gray-400 mb-10 h-[80px] leading-relaxed max-w-lg">{proj.desc}</p>
+                      
+                      <div className="flex flex-wrap gap-2 mb-10">
+                        {proj.stack.map(s => (
+                           <span key={s} className="font-mono text-xs border border-white/10 bg-white/5 text-gray-300 px-3 py-1 uppercase tracking-wider">{s}</span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="relative z-10 mt-auto border-t border-white/10 pt-6">
+                      <a href={proj.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center font-tech text-sm uppercase tracking-[0.2em] text-[#ff4800] font-bold group/link">
+                        Access Protocol <span className="ml-3 transform group-hover/link:translate-x-2 transition-transform duration-300">==&gt;</span>
+                      </a>
+                    </div>
+                  </div>
                 </div>
-                {project.link ? (
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="minecraft-btn px-4 py-2 text-white font-semibold w-full block text-center"
-                  >
-                    View Project
-                  </a>
-                ) : (
-                  <button className="minecraft-btn px-4 py-2 text-white font-semibold w-full opacity-50 cursor-not-allowed">
-                    Coming Soon
-                  </button>
-                )}
-              </div>
-            ))}
+             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 bg-minecraft-obsidian">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-center text-white mb-12" style={{textShadow: '3px 3px 6px rgba(0,0,0,0.95)'}}>Let&apos;s Build Together</h2>
-          <div className="bg-minecraft-dirt border-4 border-gray-800 p-8 rounded-lg shadow-minecraft">
-            <p className="text-xl text-white mb-8 font-bold" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.9)'}}>
-              Ready to start a new adventure? Let&apos;s craft something amazing together!
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="mailto:pranaynair05@gmail.com" className="minecraft-btn px-6 py-3 text-white font-semibold">
-                📧 Email Me
-              </a>
-              <a href="https://www.linkedin.com/in/ipranay05" target="_blank" rel="noopener noreferrer" className="minecraft-btn px-6 py-3 text-white font-semibold">
-                💼 LinkedIn
-              </a>
-              <a href="https://www.github.com/ipranay05" target="_blank" rel="noopener noreferrer" className="minecraft-btn px-6 py-3 text-white font-semibold">
-                🐙 GitHub
-              </a>
-            </div>
+      {/* Footer Contact */}
+      <section id="contact" className="py-32 px-6 bg-[#050507] border-t border-[#ff4800]/20 relative overflow-hidden">
+        <div className="dec-line absolute top-0 left-0 w-full h-[1px]"></div>
+        <div className="max-w-7xl mx-auto flex flex-col items-center text-center gsap-fade-in">
+          <span className="font-mono text-sm text-[#00f0ff] tracking-[0.4em] mb-6 uppercase">End of Directory</span>
+          <h2 className="text-6xl md:text-8xl font-industrial font-bold uppercase text-white mb-12">Initialize <br/><span className="outline-text">Comm</span></h2>
+          
+          <div className="flex flex-col sm:flex-row gap-6 mb-20">
+            <a href="mailto:pranaynair05@gmail.com" className="industrial-btn px-10 py-5 text-sm">Open Channel // Email</a>
+            <a href="https://www.linkedin.com/in/ipranay05" target="_blank" rel="noopener noreferrer" className="industrial-btn px-10 py-5 text-sm !border-[#00f0ff] !text-[#00f0ff] hover:!text-white hover:before:bg-[#00f0ff]">Sync LinkedIN</a>
+          </div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-[#64748b] tracking-widest uppercase">
+          <p>Pranay Nair © 2026 // System Online</p>
+          <div className="flex gap-4">
+             <a href="https://github.com/ipranay05" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
+             <span>Status: Optimal</span>
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 border-t-4 border-gray-800 py-8">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-gray-400">
-            © 2024 Pranay Nair. Built with ❤️ and lots of ☕ in the Minecraft universe.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

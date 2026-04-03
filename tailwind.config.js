@@ -8,37 +8,32 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'pixelify': ['Pixelify Sans', 'monospace'],
+        sans: ['Inter', 'Roboto', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Menlo', 'monospace'],
+        industrial: ['Syncopate', 'Arial Black', 'sans-serif'],
       },
       colors: {
-        'minecraft-grass': '#7CB342',
-        'minecraft-dirt': '#8D6E63',
-        'minecraft-stone': '#9E9E9E',
-        'minecraft-wood': '#8D6E63',
-        'minecraft-diamond': '#4FC3F7',
-        'minecraft-gold': '#FFD700',
-        'minecraft-redstone': '#F44336',
-        'minecraft-emerald': '#4CAF50',
-        'minecraft-lapis': '#2196F3',
-        'minecraft-obsidian': '#212121',
-        'minecraft-netherack': '#8B0000',
-        'minecraft-endstone': '#FFF8DC',
-      },
-      animation: {
-        'bounce-slow': 'bounce 2s infinite',
-        'pulse-slow': 'pulse 3s infinite',
-        'float': 'float 3s ease-in-out infinite',
-      },
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' },
+        industrial: {
+          900: '#0a0a0a',
+          800: '#141414',
+          700: '#1e1e1e',
+          600: '#2a2a2a',
+          500: '#3f3f3f',
+          400: '#5c5c5c',
+        },
+        primary: {
+          DEFAULT: '#ff4800',  // Industrial Orange
+          hover: '#ff6600',
+        },
+        neon: {
+          yellow: '#ccff00',
+          blue: '#00ccff',
         }
       },
-      boxShadow: {
-        'minecraft': '4px 4px 0px 0px rgba(0,0,0,0.3)',
-        'minecraft-hover': '6px 6px 0px 0px rgba(0,0,0,0.4)',
-      }
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'grid-pattern': "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%231a1a1a' fill-rule='evenodd'/%3E%3C/svg%3E\")",
+      },
     },
   },
   plugins: [],
